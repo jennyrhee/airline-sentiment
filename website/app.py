@@ -72,13 +72,11 @@ def generate_wordcloud(tweets_df, most_freq_sentiment):
 
 
 def generate_plot(tweets_df):
-    fig = px.bar((tweets_df.groupby('airline_sentiment')
-                 [['prob']].count()
-                           .reset_index()),
-                 x="prob", y="airline_sentiment", orientation="h")
+    fig = px.bar(tweets_df, x="prob", y="airline_sentiment", orientation="h")
     fig.update_layout(xaxis_title={'text': 'number of tweets'},
                       yaxis_title={'text': None})
-    fig.update_traces(marker_color='rgb(51, 102, 153)')
+    fig.update_traces(marker_color='rgb(51, 102, 153)',
+                      hovertemplate=None, hoverinfo='skip')
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
     return graphJSON
