@@ -1,4 +1,4 @@
 data/
 notebooks/.ipynb_checkpoints/
 notebooks/__pycache__/
-website/secrets.py
+secrets.py
