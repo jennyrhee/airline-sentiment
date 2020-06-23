@@ -44,14 +44,14 @@ Released   : 20130811
         </div>
         <div class='chart' id='graph'>
             <script>
-                var graph = {{fig | safe}};
+                var graph = {{ fig | safe }};
                 Plotly.plot('graph', graph, {});
             </script>
         </div>
-        <div class='title'>
+        <!-- <div class='title'>
             <span class='byline2'>Word Cloud ({{ most_freq_sentiment }}):</span>
             <center>{{ word_cloud }}</center>
-        </div>
+        </div> -->
 	</div>
 </div>
 <br>

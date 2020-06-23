@@ -38,14 +38,14 @@ def prediction():
                                                      most_freq_sentiment)
 
     fig = generate_plot(tweets_df)
-    word_cloud = generate_wordcloud(tweets_df, most_freq_sentiment)
+    # word_cloud = generate_wordcloud(tweets_df, most_freq_sentiment)
     return render_template('prediction.html',
                            twitter_handle=twitter_handle,
                            most_freq_sentiment=most_freq_sentiment,
                            prob=round(prob*100, 2),
                            rep_tweet=rep_tweet,
-                           fig=fig,
-                           word_cloud=word_cloud)
+                           fig=fig)
+                           # word_cloud=word_cloud)
 
 
 def generate_wordcloud(tweets_df, most_freq_sentiment):

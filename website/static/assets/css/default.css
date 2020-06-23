@@ -207,7 +207,7 @@
 		display: block;
 		padding-top: 1em;
 		font-weight: 300;
-		font-size: 1.6em;
+		font-size: 1.8em;
 	}
 
 
@@ -471,7 +471,3 @@
 	{
 		float: right;
 	}
-
-	.js-plotly-plot .plotly .modebar-group {
-		display: none !important;
-		}
