@@ -26,11 +26,13 @@ def connect_twitter():
     return api
 
 
-def get_tweets(api, airline):
+def get_tweets(airline):
+    api = connect_twitter()
     results = api.search(airline, lang='en', count=100, exclude='retweets')
     all_tweets = []
     for tweet in results:
         all_tweets.append({'created_at': tweet.created_at,
+                           'user': tweet.user.screen_name,
                            'tweet_id': tweet.id,
                            'text': tweet.text})
     return pd.DataFrame.from_dict(all_tweets)
@@ -95,7 +97,7 @@ def preprocess(tweets_df):
 
 def predict(tweets_df):
     num_features = tweets_df.drop(['cleaned_tweet', 'tweet_id', 'text',
-                                   'created_at'], axis=1)
+                                   'user', 'created_at'], axis=1)
     text_features = tweets_df.cleaned_tweet
 
     tfidf_matrix = tfidf.transform(text_features)
@@ -109,7 +111,7 @@ def predict(tweets_df):
     return predicted_values, probs
 
 
-def get_probs(tweets_df):
+def get_probs(tweets_df, pred, probs):
     tweets_df['airline_sentiment'] =  pred
 
     for i, row in tweets_df.iterrows():
@@ -122,8 +124,29 @@ def get_probs(tweets_df):
 
     return tweets_df
 
+
+def process_predictions(tweets_df):
+    preds, probs = predict(tweets_df)
+    tweets_df = get_probs(tweets_df, preds, probs)
+
+    return tweets_df
+
+
 def get_most_freq_sentiment(tweets_df):
     counts = tweets_df.airline_sentiment.value_counts().reset_index()
-    most_freq_sentiment = (counts[counts.airline_sentiment == counts.airline_sentiment.max()]
-    ['index'].values[0])
+    most_freq_sentiment = (counts[
+        counts.airline_sentiment == counts.airline_sentiment.max()
+        ]
+        ['index'].values[0])
     return most_freq_sentiment
+
+
+def get_representative_tweet(tweets_df, most_freq_sentiment):
+    rep_tweet = tweets_df[
+        (tweets_df.airline_sentiment == most_freq_sentiment) &
+        (tweets_df.prob == tweets_df.prob.max())
+    ]
+    user, tweet_id = rep_tweet.user.values[0], rep_tweet.tweet_id.values[0]
+    url = f'https://twitter.com/{user}/status/{tweet_id}'
+
+    return url, rep_tweet.prob.values[0]
