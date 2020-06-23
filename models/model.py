@@ -12,8 +12,8 @@ from nltk.stem import PorterStemmer
 import tweepy
 import secrets
 
-tfidf = pickle.load(open('../models/tfidf.pickle', 'rb'))
-model = pickle.load(open('../models/model.pickle', 'rb'))
+tfidf = pickle.load(open('models/tfidf.pickle', 'rb'))
+model = pickle.load(open('models/model.pickle', 'rb'))
 
 
 def connect_twitter():

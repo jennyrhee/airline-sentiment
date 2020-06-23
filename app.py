@@ -12,7 +12,7 @@ from PIL import Image
 import io
 import base64
 
-import model
+from models import model
 
 app = Flask(__name__)
 
