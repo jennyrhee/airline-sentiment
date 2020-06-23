@@ -156,7 +156,7 @@
 	.major
 	{
 		overflow: hidden;
-		margin-bottom: 4em;
+		margin-bottom: 3em;
 		text-align: center;
 	}
 	
@@ -200,6 +200,14 @@
 		padding-top: 1em;
 		font-weight: 300;
 		font-size: 1.1em;
+	}
+
+	.title .byline2
+	{
+		display: block;
+		padding-top: 1em;
+		font-weight: 300;
+		font-size: 1.6em;
 	}
 
 
@@ -464,33 +472,6 @@
 		float: right;
 	}
 
-
-/*********************************************************************************/
-/* Portfolio                                                                     */
-/*********************************************************************************/
-
-	#portfolio-wrapper
-	{
-		padding: 6em 0em;
-	}
-	
-	#portfolio
-	{
-		overflow: hidden;
-		text-align: center;
-	}
-	
-	#portfolio img
-	{
-		margin: 0;
-		padding: 0;
-	}
-	
-	#portfolio .box
-	{
-		padding: 30px;
-		background: #FFF;
-		border-bottom: 2px solid #7C7C7C;
-		border-right: 1px solid #DADADA;
-		border-left: 1px solid #DADADA;
-	}
+	.js-plotly-plot .plotly .modebar-group {
+		display: none !important;
+		}
