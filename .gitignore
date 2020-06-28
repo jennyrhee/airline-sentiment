@@ -2,3 +2,5 @@ data/
 notebooks/.ipynb_checkpoints/
 notebooks/__pycache__/
 secrets.py
+__pycache__/
+models/__pycache__/
