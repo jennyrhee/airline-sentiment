@@ -1,6 +1,6 @@
 data/
 notebooks/.ipynb_checkpoints/
 notebooks/__pycache__/
-secrets.py
+.env
 __pycache__/
 models/__pycache__/
