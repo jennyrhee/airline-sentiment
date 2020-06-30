@@ -22,14 +22,14 @@ def index():
     if request.method == 'POST':
         twitter_handle = request.form['text_in']
         return redirect(url_for('prediction',
-                                twitter_handle='@'+twitter_handle))
+                                twitter_handle=twitter_handle))
 
     return render_template('index.html')
 
 
 @app.route('/prediction.html', methods=['GET', 'POST'])
 def prediction():
-    twitter_handle = request.args.get('twitter_handle')
+    twitter_handle = '@' + request.args.get('twitter_handle')
     tweets_df = model.get_tweets(twitter_handle)
     tweets_df = model.preprocess(tweets_df)
     tweets_df = model.process_predictions(tweets_df)

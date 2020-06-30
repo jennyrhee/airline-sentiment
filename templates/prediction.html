@@ -12,15 +12,15 @@ Released   : 20130811
 -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title></title>
-<meta name="keywords" content="" />
-<meta name="description" content="" />
-<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
-<link href="../static/assets/css/default.css" rel="stylesheet" type="text/css" media="all" />
-<link href="../static/assets/css/fonts.css" rel="stylesheet" type="text/css" media="all" />
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Airline Sentiment Analysis</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
+    <link href="../static/assets/css/default.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="../static/assets/css/fonts.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
 
 <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
 
@@ -42,18 +42,16 @@ Released   : 20130811
         <div class='title'>
             <span class='byline2'>Tweet Counts by Sentiment:</span>
         </div>
-        <div class='chart' id='graph'>
-            <script>
-                var graph = {{ fig | safe }};
-                Plotly.plot('graph', graph, {});
-            </script>
-        </div>
+
         <!-- <div class='title'>
             <span class='byline2'>Word Cloud ({{ most_freq_sentiment }}):</span>
             <center>{{ word_cloud }}</center>
         </div> -->
 	</div>
 </div>
+<!-- <div style="max-width: 75vw; margin: 0 auto;">
+    <div id='graph'></div>
+</div> -->
 <br>
 <br>
 <div id="contact" class="container">
@@ -71,4 +69,8 @@ Released   : 20130811
 	<p>Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
 </div>
 </body>
+<script>
+    var graph = {{ fig | safe }};
+    Plotly.plot('graph', graph, {});
+</script>
 </html>
