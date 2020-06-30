@@ -10,17 +10,24 @@ from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 from nltk.stem import PorterStemmer
 
 import tweepy
-import secrets
+
+from dotenv import load_dotenv
+import os
 
 tfidf = pickle.load(open('models/tfidf.pickle', 'rb'))
 model = pickle.load(open('models/model.pickle', 'rb'))
+load_dotenv()
 
 
 def connect_twitter():
-    auth = tweepy.OAuthHandler(secrets.API_KEY,
-                               secrets.API_SECRET_KEY)
-    auth.set_access_token(secrets.ACCESS_TOKEN,
-                          secrets.ACCESS_TOKEN_SECRET)
+    API_KEY = os.environ.get('API_KEY')
+    API_SECRET_KEY = os.environ.get('API_SECRET_KEY')
+    ACCESS_TOKEN = os.environ.get('ACCESS_TOKEN')
+    ACCESS_TOKEN_SECRET = os.environ.get('ACCESS_TOKEN_SECRET')
+    auth = tweepy.OAuthHandler(API_KEY,
+                               API_SECRET_KEY)
+    auth.set_access_token(ACCESS_TOKEN,
+                          ACCESS_TOKEN_SECRET)
     api = tweepy.API(auth, wait_on_rate_limit=True)
 
     return api
