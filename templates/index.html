@@ -19,6 +19,7 @@ Released   : 20130811
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
 	<link href="../static/assets/css/default.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="../static/assets/css/fonts.css" rel="stylesheet" type="text/css" media="all" />
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 </head>
 
 <body>
@@ -45,40 +46,42 @@ Released   : 20130811
 
 			<form method="post" action="#">
 				<div class='form'>
-					<input type="text" name="text_in" id="text_in" placeholder="Enter airline Twitter handle (no @)"/>
+					<input type="text" name="text_in" id="text_in" onkeypress="$('#loading').show();" placeholder="Enter airline Twitter handle (no @)"/>
 					{% if error %}
 						<p style='color: red;'>{{ error }}</p>
 					{% endif %}
 				</div>
 			</form>
 
+			<center><div id="loading" style="display:none;"><img style='height: 80px; width: 80px;' src="../static/images/loading_bounce.gif" alt=""/></div></center>
+
 			<div class="major">
 				<span class='byline'>Or, click one of the following airlines:</span>
 			</div>
 
 			<div class="column1">
-				<a href='/prediction.html?twitter_handle=Delta' class="image image-full"><img src="../static/images/delta.jpg" alt=""/></a>
+				<a href='/prediction.html?twitter_handle=Delta' class="image image-full" onclick="$('#loading').show();"><img src="../static/images/delta.jpg" alt=""/></a>
 				<div class="title">
 					<h2>Delta</h2>
 				</div>
 			</div>
 
 			<div class="column2">
-				<a href='/prediction.html?twitter_handle=United' class="image image-full"><img src="../static/images/united.png" alt=""/></a>
+				<a href='/prediction.html?twitter_handle=United' class="image image-full" onclick="$('#loading').show();"><img src="../static/images/united.png" alt=""/></a>
 				<div class="title">
 					<h2>United</h2>
 				</div>
 			</div>
 
 			<div class="column3">
-				<a href='/prediction.html?twitter_handle=AmericanAir' class="image image-full"><img src="../static/images/american.jpg" alt=""/></a>
+				<a href='/prediction.html?twitter_handle=AmericanAir' class="image image-full" onclick="$('#loading').show();"><img src="../static/images/american.jpg" alt=""/></a>
 				<div class="title">
 					<h2>American</h2>				
 				</div>
 			</div>
 
 			<div class="column4">
-				<a href ='/prediction.html?twitter_handle=SouthwestAir' class="image image-full"><img src="../static/images/southwest.jpg" alt=""/></a>
+				<a href ='/prediction.html?twitter_handle=SouthwestAir' class="image image-full" onclick="$('#loading').show();"><img src="../static/images/southwest.jpg" alt=""/></a>
 				<div class="title">
 					<h2>Southwest</h2>
 				</div>
@@ -100,9 +103,6 @@ Released   : 20130811
 			<li><a href="https://github.com/jennyrhee" class="icon icon-github"><span></span></a></li>
 			<li><a href="https://www.linkedin.com/in/jenny-rhee-84ab5576/" class="icon icon-linkedin"><span></span></a></li>
 		</ul>
-	</div>
-	<div id="copyright" class="container">
-		<p>Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
 	</div>
 </body>
 </html>
