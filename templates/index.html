@@ -40,12 +40,15 @@ Released   : 20130811
 			<div class="major">
 				<h2>Choose an airline</h2>
 				<span class='byline'>View sentiment based on their 100 most recent mentions</span>
-				<span class='byline2'>Warning: Potential profanity in tweets!</span>
+				<span class='byline2'><i>Warning: Potential profanity - real tweets by real people!</i></span>
 			</div>
 
 			<form method="post" action="#">
 				<div class='form'>
 					<input type="text" name="text_in" id="text_in" placeholder="Enter airline Twitter handle (no @)"/>
+					{% if error %}
+						<p style='color: red;'>{{ error }}</p>
+					{% endif %}
 				</div>
 			</form>
 
@@ -54,7 +57,7 @@ Released   : 20130811
 			</div>
 
 			<div class="column1">
-				<a href='/prediction.html?twitter_handle=Delta' class="image image-full" onclick="loading();"><img src="../static/images/delta.jpg" alt=""/></a>
+				<a href='/prediction.html?twitter_handle=Delta' class="image image-full"><img src="../static/images/delta.jpg" alt=""/></a>
 				<div class="title">
 					<h2>Delta</h2>
 				</div>

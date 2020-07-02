@@ -21,8 +21,14 @@ app = Flask(__name__)
 def index():
     if request.method == 'POST':
         twitter_handle = request.form['text_in']
-        return redirect(url_for('prediction',
-                                twitter_handle=twitter_handle))
+        tweets_df = model.get_tweets('@' + twitter_handle)
+        if len(tweets_df) > 0:
+            return redirect(url_for('prediction',
+                                    twitter_handle=twitter_handle))
+        else:
+            error = f'No recent mentions for @{twitter_handle}! Try ' + \
+                    'another handle.'
+            return render_template('index.html', error=error)
 
     return render_template('index.html')
 
