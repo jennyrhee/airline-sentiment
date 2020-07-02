@@ -153,10 +153,15 @@ def get_most_freq_sentiment(tweets_df):
 
 
 def get_representative_tweet(tweets_df, most_freq_sentiment):
+    # Highest probability for most frequent sentiment
+    highest_prob = tweets_df[
+        tweets_df.airline_sentiment == most_freq_sentiment
+        ].prob.max()
     rep_tweet = tweets_df[
         (tweets_df.airline_sentiment == most_freq_sentiment) &
-        (tweets_df.prob == tweets_df.prob.max())
+        (tweets_df.prob == highest_prob)
     ]
+
     user, tweet_id = rep_tweet.user.values[0], rep_tweet.tweet_id.values[0]
     url = f'https://twitter.com/{user}/status/{tweet_id}'
 
