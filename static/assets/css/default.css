@@ -192,6 +192,7 @@
 	.title
 	{
 		text-align: center;
+		background: white;
 	}
 	
 	.title h2
@@ -213,7 +214,6 @@
 	.title .byline2
 	{
 		display: block;
-		background-color: white;
 		font-weight: 300;
 		font-size: 1.8em;
 	}

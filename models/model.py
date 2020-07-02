@@ -16,8 +16,8 @@ import os
 
 load_dotenv()
 
-tfidf_file = '../models/tfidf.pkl'
-model_file = '../models/model.pkl'
+tfidf_file = 'models/tfidf.pkl'
+model_file = 'models/model.pkl'
 
 
 def connect_twitter():
@@ -176,7 +176,7 @@ def process_for_wordcloud(tweets_df, most_freq_sentiment):
     return cloud_df
 
 
-def wordcloud_probs(cloud_df):
+def wordcloud_probs(cloud_df, most_freq_sentiment):
     with open(tfidf_file, 'rb') as tfidf_f, open(model_file, 'rb') as model_f:
         tfidf = pickle.load(tfidf_f)
         model = pickle.load(model_f)
@@ -193,5 +193,25 @@ def wordcloud_probs(cloud_df):
         final_df = pd.concat([num_features, tfidf_df], axis=1)
 
         probs = model.predict_proba(final_df)
+        # Find index for most frequent sentiment
+        most_freq_idx = np.where(model.classes_ == most_freq_sentiment)[0][0]
+        probs = probs[:, most_freq_idx]
 
     return probs
+
+
+def combine_for_cloud(cloud_df, probs):
+    cloud_df = (pd.DataFrame(zip(cloud_df.text, list(probs)),
+                columns=['token', 'prob'])
+                .sort_values(by='prob', ascending=False)
+                .reset_index(drop=True))
+
+    return cloud_df
+
+
+def get_cloud_frequencies(tweets_df, most_freq_sentiment):
+    cloud_df = process_for_wordcloud(tweets_df, most_freq_sentiment)
+    probs = wordcloud_probs(cloud_df, most_freq_sentiment)
+    cloud_df = combine_for_cloud(cloud_df, probs)
+
+    return cloud_df

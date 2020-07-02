@@ -38,30 +38,27 @@ def prediction():
                                                      most_freq_sentiment)
 
     fig = generate_plot(tweets_df)
-    # word_cloud = generate_wordcloud(tweets_df, most_freq_sentiment)
+    word_cloud = generate_wordcloud(tweets_df, most_freq_sentiment)
     return render_template('prediction.html',
                            twitter_handle=twitter_handle,
                            most_freq_sentiment=most_freq_sentiment,
                            prob=round(prob*100, 2),
                            rep_tweet=rep_tweet,
-                           fig=fig)
-                           # word_cloud=word_cloud)
+                           fig=fig,
+                           word_cloud=word_cloud)
 
 
 def generate_wordcloud(tweets_df, most_freq_sentiment):
-    plane_mask = np.array(Image.open('../docs/img/airplane.jpg'))
+    plane_mask = np.array(Image.open('docs/img/airplane.jpg'))
 
-    all_words = (' '.join(
-        [text for text
-         in tweets_df[tweets_df.airline_sentiment == most_freq_sentiment]
-         ['cleaned_tweet']]))
+    cloud_df = model.get_cloud_frequencies(tweets_df, most_freq_sentiment)
+    matplotlib.use('agg')
     wordcloud = (WordCloud(mask=plane_mask, background_color='white')
-                 .generate(all_words))
+                 .generate_from_frequencies(dict(cloud_df.values)))
     plt.figure(figsize=(12, 5))
     plt.imshow(wordcloud, interpolation="bilinear")
     plt.axis("off")
 
-    matplotlib.use('agg')
     image = io.BytesIO()
     plt.savefig(image, format='png')
     image.seek(0)  # rewind the data
