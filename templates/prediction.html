@@ -16,7 +16,7 @@ Released   : 20130811
     <title>Airline Sentiment Analysis</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
-    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
     <link href="../static/assets/css/default.css" rel="stylesheet" type="text/css" media="all" />
     <link href="../static/assets/css/fonts.css" rel="stylesheet" type="text/css" media="all" />
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -39,19 +39,18 @@ Released   : 20130811
             <span class='byline2'>The tweet with the highest probability of being {{ most_freq_sentiment }} ({{ prob }}%):</span>
             <center><blockquote class="twitter-tweet" data-conversation="none"><p lang="en" dir="ltr"><a href={{ rep_tweet }}"></a></blockquote><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></center>
         </div>
-        <div class='title'>
-            <span class='byline2'>Tweet Counts by Sentiment:</span>
-        </div>
-
-        <!-- <div class='title'>
-            <span class='byline2'>Word Cloud ({{ most_freq_sentiment }}):</span>
-            <center>{{ word_cloud }}</center>
-        </div> -->
 	</div>
 </div>
-<!-- <div style="max-width: 75vw; margin: 0 auto;">
-    <div id='graph'></div>
-</div> -->
+<div class='title'>
+    <span class='byline2'>Tweet Probabilities by Sentiment:</span>
+    <div class='graph'>
+        <div id='graph'></div>
+    </div>
+</div>
+<div class='title'>
+    <span class='byline2'>Word Cloud ({{ most_freq_sentiment }}):</span>
+    <center>{{ word_cloud }}</center>
+</div>
 <br>
 <br>
 <div id="contact" class="container">
@@ -65,11 +64,8 @@ Released   : 20130811
 			<li><a href="https://www.linkedin.com/in/jenny-rhee-84ab5576/" class="icon icon-linkedin"><span></span></a></li>
 		</ul>
 </div>
-<div id="copyright" class="container">
-	<p>Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
-</div>
 </body>
-<script>
+<script type="text/javascript">
     var graph = {{ fig | safe }};
     Plotly.plot('graph', graph, {});
 </script>

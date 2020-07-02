@@ -16,7 +16,7 @@ Released   : 20130811
 <title></title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
-<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
 <link href="../static/assets/css/default.css" rel="stylesheet" type="text/css" media="all" />
 <link href="../static/assets/css/fonts.css" rel="stylesheet" type="text/css" media="all" />
 
@@ -42,17 +42,18 @@ Released   : 20130811
 		<div class="major">
 			<h2>Choose an airline</h2>
 			<span class='byline'>View sentiment based on their 100 most recent mentions</span>
+			<span class='byline2'>Warning: Potential profanity in tweets!</span>
 		</div>
 		<form method="post" action="#">
 			<div class='form'>
-				<input type="text" name="text_in" id="text_in" placeholder="Enter airline Twitter handle"/>
+				<input type="text" name="text_in" id="text_in" placeholder="Enter airline Twitter handle (no @)"/>
 			</div>
 		</form>
 		<div class="major">
 			<span class='byline'>Or, click one of the following airlines:</span>
 		</div>
 		<div class="column1">
-			<a href='/prediction.html?twitter_handle=Delta' class="image image-full"><img src="../static/images/delta.jpg" alt=""/></a>
+			<a href='/prediction.html?twitter_handle=Delta' class="image image-full" onclick="loading();"><img src="../static/images/delta.jpg" alt=""/></a>
 			<div class="title">
 				<h2>Delta</h2>
 			</div>
