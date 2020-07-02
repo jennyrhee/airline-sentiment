@@ -123,15 +123,8 @@ def predict(tweets_df):
 
 
 def get_probs(tweets_df, pred, probs):
-    tweets_df['airline_sentiment'] =  pred
-
-    for i, row in tweets_df.iterrows():
-        if row['airline_sentiment'] == 'negative':
-            tweets_df.loc[i, 'prob'] = probs[i, 0]
-        elif row['airline_sentiment'] == 'neutral':
-            tweets_df.loc[i, 'prob'] = probs[i, 1]
-        else:
-            tweets_df.loc[i, 'prob'] = probs[i, 2]
+    tweets_df['airline_sentiment'] = pred
+    tweets_df['prob'] = np.amax(probs, axis=1)
 
     return tweets_df
 
