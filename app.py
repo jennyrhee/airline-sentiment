@@ -75,8 +75,9 @@ def generate_wordcloud(tweets_df, most_freq_sentiment):
 
 
 def generate_plot(tweets_df):
-    fig = px.bar(tweets_df.sort_values(by='prob'), x="prob",
-                 y="airline_sentiment", orientation="h")
+    fig = px.bar(tweets_df.sort_values(by='prob'), x='prob',
+                 y='airline_sentiment', orientation='h',
+                 hover_data=['text'])
     fig.update_layout(xaxis_title={'text': 'sum of probabilities'},
                       yaxis_title={'text': None})
     fig.update_traces(marker_color='rgb(51, 102, 153)')
