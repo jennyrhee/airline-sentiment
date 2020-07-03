@@ -55,6 +55,18 @@ def prediction():
 
 
 def generate_wordcloud(tweets_df, most_freq_sentiment):
+    '''Generates a word cloud image based on the probability of each unique token
+    being classified as most_freq_sentiment.
+
+    Parameters
+    ----------
+    tweets_df (pd.DataFrame),
+    most_freq_sentiment (str)
+
+    Returns
+    -------
+    image_64 (str): string that is ready to be inserted into HTML
+    '''
     plane_mask = np.array(Image.open('docs/img/airplane.jpg'))
 
     cloud_df = model.get_cloud_frequencies(tweets_df, most_freq_sentiment)
@@ -75,6 +87,17 @@ def generate_wordcloud(tweets_df, most_freq_sentiment):
 
 
 def generate_plot(tweets_df):
+    '''Generates bar graph from all the tweets. Shows sentiment, probability, and text
+    for each tweet in the tooltip.
+
+    Parameter
+    ---------
+    tweets_df (pd.DataFrame)
+
+    Returns
+    -------
+    graphJSON (str): JSON formatted string for graph to be inserted into HTML
+    '''
     fig = px.bar(tweets_df.sort_values(by='prob'), x='prob',
                  y='airline_sentiment', orientation='h',
                  hover_data=['text'])
