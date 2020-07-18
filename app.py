@@ -67,11 +67,11 @@ def generate_wordcloud(tweets_df, most_freq_sentiment):
     -------
     image_64 (str): string that is ready to be inserted into HTML
     '''
-    plane_mask = np.array(Image.open('docs/img/airplane.jpg'))
+    # plane_mask = np.array(Image.open('docs/img/airplane.jpg'))
 
     cloud_df = model.get_cloud_frequencies(tweets_df, most_freq_sentiment)
     matplotlib.use('agg')
-    wordcloud = (WordCloud(mask=plane_mask, background_color='white')
+    wordcloud = (WordCloud(background_color='white') # mask=plane_mask,
                  .generate_from_frequencies(dict(cloud_df.values)))
     plt.figure(figsize=(12, 5))
     plt.imshow(wordcloud, interpolation="bilinear")
