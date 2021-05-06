@@ -3,7 +3,7 @@ numpy==1.16.3
 pandas==0.24.2
 matplotlib==3.1.2
 Flask==1.1.1
-Flask-Cors==3.0.7
+Flask-Cors==3.0.9
 plotly==4.0.0
 wordcloud==1.6.0
 emoji==0.5.4
