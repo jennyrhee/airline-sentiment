@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 
 import re
-import pickle
 
 import emoji
 from nltk.tokenize import TweetTokenizer
@@ -15,9 +14,6 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-
-tfidf_file = 'models/tfidf.pkl'
-model_file = 'models/model.pkl'
 
 
 def connect_twitter():
@@ -167,7 +163,7 @@ def preprocess(tweets_df):
     return tweets_df
 
 
-def predict(tweets_df):
+def predict(tweets_df, tfidf, model):
     '''Uses pickled models to predict sentiment.
 
     Parameter
@@ -179,20 +175,17 @@ def predict(tweets_df):
     predicted_values (np.ndarray): predicted values,
     probs (np.ndarray): probabilities for each class
     '''
-    with open(tfidf_file, 'rb') as tfidf_f, open(model_file, 'rb') as model_f:
-        tfidf = pickle.load(tfidf_f)
-        model = pickle.load(model_f)
-        num_features = tweets_df.drop(['cleaned_tweet', 'tweet_id', 'text',
-                                       'user', 'created_at'], axis=1)
-        text_features = tweets_df.cleaned_tweet
+    num_features = tweets_df.drop(['cleaned_tweet', 'tweet_id', 'text',
+                                    'user', 'created_at'], axis=1)
+    text_features = tweets_df.cleaned_tweet
 
-        tfidf_matrix = tfidf.transform(text_features)
-        tfidf_df = pd.DataFrame(tfidf_matrix.toarray(),
-                                columns=tfidf.get_feature_names())
-        final_df = pd.concat([num_features, tfidf_df], axis=1)
+    tfidf_matrix = tfidf.transform(text_features)
+    tfidf_df = pd.DataFrame(tfidf_matrix.toarray(),
+                            columns=tfidf.get_feature_names())
+    final_df = pd.concat([num_features, tfidf_df], axis=1)
 
-        predicted_values = model.predict(final_df)
-        probs = model.predict_proba(final_df)
+    predicted_values = model.predict(final_df)
+    probs = model.predict_proba(final_df)
 
     return predicted_values, probs
 
@@ -216,7 +209,7 @@ def get_probs(tweets_df, predicted_values, probs):
     return tweets_df
 
 
-def process_predictions(tweets_df):
+def process_predictions(tweets_df, tfidf, model):
     '''Helper function to predict new values and process new DataFrame.
 
     Parameter
@@ -227,7 +220,7 @@ def process_predictions(tweets_df):
     -------
     tweets_df (pd.DataFrame)
     '''
-    preds, probs = predict(tweets_df)
+    preds, probs = predict(tweets_df, tfidf, model)
     tweets_df = get_probs(tweets_df, preds, probs)
 
     return tweets_df
@@ -306,7 +299,7 @@ def process_for_wordcloud(tweets_df, most_freq_sentiment):
     return cloud_df
 
 
-def wordcloud_probs(cloud_df, most_freq_sentiment):
+def wordcloud_probs(cloud_df, most_freq_sentiment, tfidf, model):
     '''Finds the probability of each unique token being most_freq_sentiment.
 
     Parameters
@@ -318,25 +311,22 @@ def wordcloud_probs(cloud_df, most_freq_sentiment):
     -------
     probs (np.ndarray): probabilities for most_freq_sentiment
     '''
-    with open(tfidf_file, 'rb') as tfidf_f, open(model_file, 'rb') as model_f:
-        tfidf = pickle.load(tfidf_f)
-        model = pickle.load(model_f)
-        # Drop duplicate tokens
-        cloud_df.drop_duplicates(subset='text', inplace=True)
-        cloud_df.reset_index(inplace=True, drop=True)
+    # Drop duplicate tokens
+    cloud_df.drop_duplicates(subset='text', inplace=True)
+    cloud_df.reset_index(inplace=True, drop=True)
 
-        num_features = cloud_df.drop(['text'], axis=1)
-        text_features = cloud_df.text
+    num_features = cloud_df.drop(['text'], axis=1)
+    text_features = cloud_df.text
 
-        tfidf_matrix = tfidf.transform(text_features)
-        tfidf_df = pd.DataFrame(tfidf_matrix.toarray(),
-                                columns=tfidf.get_feature_names())
-        final_df = pd.concat([num_features, tfidf_df], axis=1)
+    tfidf_matrix = tfidf.transform(text_features)
+    tfidf_df = pd.DataFrame(tfidf_matrix.toarray(),
+                            columns=tfidf.get_feature_names())
+    final_df = pd.concat([num_features, tfidf_df], axis=1)
 
-        probs = model.predict_proba(final_df)
-        # Find index for most frequent sentiment
-        most_freq_idx = np.where(model.classes_ == most_freq_sentiment)[0][0]
-        probs = probs[:, most_freq_idx]
+    probs = model.predict_proba(final_df)
+    # Find index for most frequent sentiment
+    most_freq_idx = np.where(model.classes_ == most_freq_sentiment)[0][0]
+    probs = probs[:, most_freq_idx]
 
     return probs
 
@@ -361,7 +351,7 @@ def combine_for_cloud(cloud_df, probs):
     return cloud_df
 
 
-def get_cloud_frequencies(tweets_df, most_freq_sentiment):
+def get_cloud_frequencies(tweets_df, most_freq_sentiment, tfidf, model):
     '''Helper function to process the tokens for the word cloud, find the
     probabilities, and create the new DataFrame.
 
@@ -371,7 +361,7 @@ def get_cloud_frequencies(tweets_df, most_freq_sentiment):
     most_freq_sentiment (str)
     '''
     cloud_df = process_for_wordcloud(tweets_df, most_freq_sentiment)
-    probs = wordcloud_probs(cloud_df, most_freq_sentiment)
+    probs = wordcloud_probs(cloud_df, most_freq_sentiment, tfidf, model)
     cloud_df = combine_for_cloud(cloud_df, probs)
 
     return cloud_df
