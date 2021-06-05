@@ -16,7 +16,7 @@ Second capstone project for Springboard: predicting sentiment about airlines usi
 
 ## Directory Structure
 
-```md
+```
 ├── README.md          <- The top-level README for developers using this project.
 ├── docs               <- PDFs with report + presentation
 │
