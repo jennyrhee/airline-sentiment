@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 import plotly
 
+import pickle
+
 import json
 from wordcloud import WordCloud
 from PIL import Image
@@ -24,6 +26,7 @@ def index():
         if '@' not in twitter_handle:
             twitter_handle = '@' + twitter_handle
         tweets_df = model.get_tweets(twitter_handle)
+
         if len(tweets_df) > 0:
             return redirect(url_for('prediction',
                                     twitter_handle=twitter_handle))
@@ -37,16 +40,21 @@ def index():
 
 @app.route('/prediction.html', methods=['GET', 'POST'])
 def prediction():
+    with open('models/tfidf.pkl', 'rb') as tfidf_f, \
+         open('models/model.pkl', 'rb') as model_f:
+        tfidf = pickle.load(tfidf_f)
+        rf = pickle.load(model_f)
+
     twitter_handle = request.args.get('twitter_handle')
     tweets_df = model.get_tweets(twitter_handle)
     tweets_df = model.preprocess(tweets_df)
-    tweets_df = model.process_predictions(tweets_df)
+    tweets_df = model.process_predictions(tweets_df, tfidf, rf)
     most_freq_sentiment = model.get_most_freq_sentiment(tweets_df)
     rep_tweet, prob = model.get_representative_tweet(tweets_df,
                                                      most_freq_sentiment)
 
     fig = generate_plot(tweets_df)
-    word_cloud = generate_wordcloud(tweets_df, most_freq_sentiment)
+    word_cloud = generate_wordcloud(tweets_df, most_freq_sentiment, tfidf, rf)
     return render_template('prediction.html',
                            twitter_handle=twitter_handle,
                            most_freq_sentiment=most_freq_sentiment,
@@ -56,7 +64,7 @@ def prediction():
                            word_cloud=word_cloud)
 
 
-def generate_wordcloud(tweets_df, most_freq_sentiment):
+def generate_wordcloud(tweets_df, most_freq_sentiment, tfidf, rf):
     '''Generates a word cloud image based on the probability of each unique token
     being classified as most_freq_sentiment.
 
@@ -71,7 +79,8 @@ def generate_wordcloud(tweets_df, most_freq_sentiment):
     '''
     plane_mask = np.array(Image.open('docs/img/airplane.jpg'))
 
-    cloud_df = model.get_cloud_frequencies(tweets_df, most_freq_sentiment)
+    cloud_df = model.get_cloud_frequencies(tweets_df, most_freq_sentiment,
+                                           tfidf, rf)
     matplotlib.use('agg')
     wordcloud = (WordCloud(mask=plane_mask, background_color='white')
                  .generate_from_frequencies(dict(cloud_df.values)))
@@ -112,4 +121,4 @@ def generate_plot(tweets_df):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
