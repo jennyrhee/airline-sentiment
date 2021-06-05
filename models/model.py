@@ -16,9 +16,6 @@ import os
 
 load_dotenv()
 
-tfidf_file = 'models/tfidf.pkl'
-model_file = 'models/model.pkl'
-
 
 def connect_twitter():
     '''Connects to Twitter API. 
@@ -167,7 +164,7 @@ def preprocess(tweets_df):
     return tweets_df
 
 
-def predict(tweets_df):
+def predict(tweets_df, tfidf_file='models/tfidf.pkl', model_file='models/model.pkl'):
     '''Uses pickled models to predict sentiment.
 
     Parameter
@@ -216,7 +213,7 @@ def get_probs(tweets_df, predicted_values, probs):
     return tweets_df
 
 
-def process_predictions(tweets_df):
+def process_predictions(tweets_df, tfidf_file='models/tfidf.pkl', model_file='models/model.pkl'):
     '''Helper function to predict new values and process new DataFrame.
 
     Parameter
@@ -227,7 +224,7 @@ def process_predictions(tweets_df):
     -------
     tweets_df (pd.DataFrame)
     '''
-    preds, probs = predict(tweets_df)
+    preds, probs = predict(tweets_df, tfidf_file, model_file)
     tweets_df = get_probs(tweets_df, preds, probs)
 
     return tweets_df
@@ -306,7 +303,8 @@ def process_for_wordcloud(tweets_df, most_freq_sentiment):
     return cloud_df
 
 
-def wordcloud_probs(cloud_df, most_freq_sentiment):
+def wordcloud_probs(cloud_df, most_freq_sentiment, tfidf_file='models/tfidf.pkl',
+                    model_file='models/model.pkl'):
     '''Finds the probability of each unique token being most_freq_sentiment.
 
     Parameters
@@ -361,7 +359,9 @@ def combine_for_cloud(cloud_df, probs):
     return cloud_df
 
 
-def get_cloud_frequencies(tweets_df, most_freq_sentiment):
+def get_cloud_frequencies(tweets_df, most_freq_sentiment,
+                          tfidf_file='models/tfidf.pkl',
+                          model_file='models/model.pkl'):
     '''Helper function to process the tokens for the word cloud, find the
     probabilities, and create the new DataFrame.
 
@@ -371,7 +371,7 @@ def get_cloud_frequencies(tweets_df, most_freq_sentiment):
     most_freq_sentiment (str)
     '''
     cloud_df = process_for_wordcloud(tweets_df, most_freq_sentiment)
-    probs = wordcloud_probs(cloud_df, most_freq_sentiment)
+    probs = wordcloud_probs(cloud_df, most_freq_sentiment, tfidf_file, model_file)
     cloud_df = combine_for_cloud(cloud_df, probs)
 
     return cloud_df
