@@ -17,6 +17,10 @@ import base64
 from models import model
 
 app = Flask(__name__)
+with open('models/tfidf.pkl', 'rb') as tfidf_f, \
+     open('models/model.pkl', 'rb') as model_f:
+    tfidf = pickle.load(tfidf_f)
+    rf = pickle.load(model_f)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -40,11 +44,6 @@ def index():
 
 @app.route('/prediction.html', methods=['GET', 'POST'])
 def prediction():
-    with open('models/tfidf.pkl', 'rb') as tfidf_f, \
-         open('models/model.pkl', 'rb') as model_f:
-        tfidf = pickle.load(tfidf_f)
-        rf = pickle.load(model_f)
-
     twitter_handle = request.args.get('twitter_handle')
     tweets_df = model.get_tweets(twitter_handle)
     tweets_df = model.preprocess(tweets_df)
