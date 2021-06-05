@@ -46,14 +46,14 @@ Released   : 20130811
 
 			<form method="post" action="" onsubmit="$('#loading').show();">
 				<div class='form'>
-					<input type="text" name="text_in" id="text_in" placeholder="Enter airline Twitter handle (no @)"/>
+					<input type="text" name="text_in" id="text_in" placeholder="Enter Twitter handle"/>
 					{% if error %}
 						<p style='color: red;'>{{ error }}</p>
 					{% endif %}
 				</div>
 			</form>
 
-			<center><div id="loading" style="display:none;"><img style='height: 80px; width: 80px;' src="../static/images/loading_bounce.gif" alt=""/></div></center>
+			<center><div id="loading" style="display:none;"><img style='height: 160px; width: 320px;' src="../static/images/airplane.gif" alt=""/></div></center>
 
 			<div class="major">
 				<span class='byline'>Or, click one of the following airlines:</span>
