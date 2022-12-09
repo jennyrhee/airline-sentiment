@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : TwoColours 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130811
+
+-->
+<html xmlns="https://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
+	<link href="../static/assets/css/default.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="../static/assets/css/fonts.css" rel="stylesheet" type="text/css" media="all" />
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+</head>
+
+<body>
+	<div id="logo" class="container">
+		<h1><a href="" class="icon icon-tasks"><span>Predicting Airline Sentiment</span></a></h1>
+	</div>
+<!-- <div id="page" class="container">
+	<div id="content">
+		<div class="title">
+			<h2>Welcome to our website</h2>
+			<span class="byline">Mauris vulputate dolor sit amet nibh</span>
+		</div>
+		<p>This is <strong>TwoColours</strong>, a free, fully standards-compliant CSS template designed by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>. The photos in this template are from <a href="http://fotogrph.com/"> Fotogrph</a>. This free template is released under the <a href="http://templated.co/license">Creative Commons Attribution</a> license, so you're pretty much free to do whatever you want with it (even use it commercially) provided you give us credit for it. Have fun :) </p>
+	</div>
+	<div id="sidebar"><a href="#" class="image image-full"><img src="../static/images/pic05.jpg" alt="" /></a></div>
+</div> -->
+	<div id="featured-wrapper">
+		<div id="featured" class="container">
+			<div class="major">
+				<h2>Choose an airline</h2>
+				<span class='byline'>View sentiment based on their 100 most recent mentions</span>
+				<span class='byline2'><i>Warning: Potential profanity - real tweets by real people!</i></span>
+			</div>
+
+			<form method="post" action="" onsubmit="$('#loading').show();">
+				<div class='form'>
+					<input type="text" name="text_in" id="text_in" placeholder="Enter Twitter handle"/>
+					{% if error %}
+						<p style='color: red;'>{{ error }}</p>
+					{% endif %}
+				</div>
+			</form>
+
+			<center><div id="loading" style="display:none;"><img style='height: 160px; width: 320px;' src="../static/images/airplane.gif" alt=""/></div></center>
+
+			<div class="major">
+				<span class='byline'>Or, click one of the following airlines:</span>
+			</div>
+
+			<div class="column1">
+				<a href='/prediction.html?twitter_handle=Delta' class="image image-full" onclick="$('#loading').show();"><img src="../static/images/delta.jpg" alt=""/></a>
+				<div class="title">
+					<h2>Delta</h2>
+				</div>
+			</div>
+
+			<div class="column2">
+				<a href='/prediction.html?twitter_handle=United' class="image image-full" onclick="$('#loading').show();"><img src="../static/images/united.png" alt=""/></a>
+				<div class="title">
+					<h2>United</h2>
+				</div>
+			</div>
+
+			<div class="column3">
+				<a href='/prediction.html?twitter_handle=AmericanAir' class="image image-full" onclick="$('#loading').show();"><img src="../static/images/american.jpg" alt=""/></a>
+				<div class="title">
+					<h2>American</h2>				
+				</div>
+			</div>
+
+			<div class="column4">
+				<a href ='/prediction.html?twitter_handle=SouthwestAir' class="image image-full" onclick="$('#loading').show();"><img src="../static/images/southwest.jpg" alt=""/></a>
+				<div class="title">
+					<h2>Southwest</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<br>
+	<br>
+
+	<div id="contact" class="container">
+		<div class="major">
+			<h2>Get in touch</h2>
+		</div>
+
+		<ul class="contact">
+			<li><a href="mailto:jennyirhee@gmail.com" class="icon icon-envelope"><span></span></a></li>
+			<li><a href="http://jennyrhee.github.io/" class="icon icon-home"><span></span></a></li>
+			<li><a href="https://github.com/jennyrhee" class="icon icon-github"><span></span></a></li>
+			<li><a href="https://www.linkedin.com/in/jenny-rhee-84ab5576/" class="icon icon-linkedin"><span></span></a></li>
+		</ul>
+	</div>
+</body>
+</html>

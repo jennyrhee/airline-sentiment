@@ -1,0 +1,11 @@
+data/
+notebooks/.ipynb_checkpoints/
+notebooks/__pycache__/
+.env
+__pycache__/
+models/__pycache__/
+.vscode/
+static/images/loading_bounce.gif
+
+Dockerfile
+notebooks/Untitled.ipynb

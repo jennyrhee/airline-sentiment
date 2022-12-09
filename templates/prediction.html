@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : TwoColours 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20130811
+
+-->
+<html xmlns="https://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Airline Sentiment Analysis</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
+    <link href="../static/assets/css/default.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="../static/assets/css/fonts.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+</head>
+
+<body>
+    <div id="logo" class="container">
+        <h1><a href="/" class="icon icon-tasks"><span>Predicting Airline Sentiment</span></a></h1>
+    </div>
+
+    <div id="featured-wrapper">
+        <div id="featured" class="container">
+            <div class="major">
+                <h2>Results</h2>
+                <span class='byline'>The overall sentiment for {{ twitter_handle }} is {{ most_freq_sentiment }}.</span>
+            </div>
+
+            <div class="title">
+                <span class='byline2'>The tweet with the highest probability of being {{ most_freq_sentiment }} ({{ prob }}%):</span>
+                <center><blockquote class="twitter-tweet" data-conversation="none"><p lang="en" dir="ltr"><a href={{ rep_tweet }}"></a></blockquote><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></center>
+            </div>
+        </div>
+    </div>
+
+    <div class='title'>
+        <span class='byline2'>Tweet Probabilities by Sentiment:</span>
+        <div class='graph'>
+            <div id='graph'></div>
+        </div>
+    </div>
+
+    <div class='title'>
+        <span class='byline2'>Word Cloud ({{ most_freq_sentiment }}):</span>
+        <center> {{ word_cloud }} </center>
+    </div>
+
+    <br>
+    <br>
+
+    <div id="contact" class="container">
+        <div class="major">
+            <h2>Get in touch</h2>
+        </div>
+
+        <ul class="contact">
+            <li><a href="mailto:jennyirhee@gmail.com" class="icon icon-envelope"><span></span></a></li>
+            <li><a href="http://jennyrhee.github.io/" class="icon icon-home"><span></span></a></li>
+            <li><a href="https://github.com/jennyrhee" class="icon icon-github"><span></span></a></li>
+            <li><a href="https://www.linkedin.com/in/jenny-rhee-84ab5576/" class="icon icon-linkedin"><span></span></a></li>
+        </ul>
+    </div>
+</body>
+
+<script type="text/javascript">
+    var graph = {{ fig | safe }};
+    Plotly.plot('graph', graph, {});
+</script>
+</html>

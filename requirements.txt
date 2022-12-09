@@ -1,0 +1,14 @@
+Cython==0.29.7
+numpy==1.16.3
+pandas==0.24.2
+matplotlib==3.1.2
+Flask==1.1.1
+Flask-Cors==3.0.9
+plotly==4.0.0
+wordcloud==1.6.0
+emoji==0.5.4
+nltk==3.4.5
+scikit-learn==0.22.1
+tweepy==3.7.0
+gunicorn==19.9.0
+python-dotenv==0.13.0
